@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+button {
+    margin-left: 10px;
+    background-color: rgb(106, 186, 239);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: darkred;
+}
+a{
+    margin: 0;
+    text-decoration: none;
+    color: rgb(103, 198, 253);
+    cursor: pointer;
+    border: 3px;
+    border-color: rgb(103, 198, 253);
+}
