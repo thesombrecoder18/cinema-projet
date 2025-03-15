@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Film;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,9 +15,18 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        User::create([
+            'nom' => 'baye',
+            'email' => 'elimaneka19@gmail.com',
+            'mot_de_passe' => bcrypt('password'),
+            'rôle' => 'administrateur',
+        ]);
+        Film::create([
+            'titre' => 'Inception',
+            'description' => 'Un film de science-fiction',
+            'durée' => 148,
+            'catégorie' => 'Science-fiction',
+            'date_sortie' => '2010-07-16'
         ]);
     }
 }

@@ -12,14 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         //
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('nom');
-            $table->string('email')->unique();
-            $table->string('mot_de_passe');
-            $table->enum('rôle', ['visiteur', 'client', 'administrateur']);
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('users')) {
+            Schema::create('users', function (Blueprint $table) {
+                $table->id();
+                $table->string('nom');
+                $table->string('email')->unique();
+                $table->string('mot_de_passe');
+                $table->enum('rôle', ['visiteur', 'client', 'administrateur']);
+                $table->timestamps();
+            });
+        }
+        
     }
 
     /**
