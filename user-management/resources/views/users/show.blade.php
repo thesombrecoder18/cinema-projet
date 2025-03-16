@@ -1,15 +1,18 @@
-<!-- resources/views/users/show.blade.php -->
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Détails de l'utilisateur</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show User</title>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 </head>
 <body>
-    <h1>Détails de l'utilisateur</h1>
-    <p>Nom : {{ $user->name }}</p>
-    <p>Email : {{ $user->email }}</p>
-    <a href="{{ route('users.index') }}">Retour à la liste</a>
+    <div class="container">
+        <h1>User Details</h1>
+        <p><strong>ID:</strong> {{ $user->id }}</p>
+        <p><strong>Name:</strong> {{ $user->name }}</p>
+        <p><strong>Email:</strong> {{ $user->email }}</p>
+        <p><strong>Role:</strong> {{ $user->role }}</p>
+        <a href="{{ route('users.index') }}" class="btn">Back to List</a>
+    </div>
 </body>
 </html>
