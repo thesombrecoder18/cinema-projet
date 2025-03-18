@@ -1,4 +1,8 @@
 <?php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
 class Seance extends Model {
     protected $fillable = ['film_id', 'salle_id', 'date_heure'];
 

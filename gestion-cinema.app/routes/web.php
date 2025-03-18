@@ -1,18 +1,11 @@
 <?php
-
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::get('register', [AuthController::class, 'showRegisterForm'])->name('register');
 
+Route::post('login', [AuthController::class, 'login'])->name('login.submit');
+Route::post('register', [AuthController::class, 'register'])->name('register.submit');
 
-Route::get('/test', function () {
-    return response()->json([
-        'message' => 'Hello World!',
-        'status' => 200
-    ]);
-});
-
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth']);
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
