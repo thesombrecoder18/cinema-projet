@@ -1,12 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+@include('partials.dashboard-header')
 <!-- La page adopte le fond en dégradé défini dans ton CSS global -->
 <div class="container" style="width: 850px; height: auto; padding-bottom: 30px; ">
     <!-- Header / Banner -->
     <header class="text-center p-4" style="background: url('https://via.placeholder.com/850x250?text=Cinema+Hero') no-repeat center center; background-size: cover; border-top-left-radius: 30px; border-top-right-radius: 30px;">
-        <h1 class="text-white" style="font-size: 36px; margin: 0; color: yellow;">Bienvenue sur Cinema App</h1>
-        <p class="text-white" style="font-size: 16px; color: yellow;">Votre portail pour réserver des places au cinéma</p>
+        <h1 class="" style="font-size: 36px; margin: 0; color: #ecb674;">Bienvenue sur Cinema App</h1>
+        <p class="" style="font-size: 16px; color: #ecb674;">Votre portail pour réserver des places au cinéma</p>
     </header>
 
     <!-- Section principale -->
@@ -59,8 +60,6 @@
     </div>
 
     <!-- Pied de page simple -->
-    <footer class="text-center p-3" style="background: #f5f5f5; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;">
-        <p style="font-size: 14px; color: #333;">&copy; {{ date('Y') }} Cinema App - Tous droits réservés</p>
-    </footer>
+    
 </div>
 @endsection

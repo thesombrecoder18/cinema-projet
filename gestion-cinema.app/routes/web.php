@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MovieController;
 
 // Route par défaut - redirige vers le formulaire d'authentification
 Route::get('/', function () {
@@ -27,3 +28,17 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+
+// Route de recherche de films
+Route::get('/movies/search', [MovieController::class, 'search'])->name('movies.search');
+Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile');
