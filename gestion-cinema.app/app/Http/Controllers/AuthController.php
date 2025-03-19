@@ -25,15 +25,14 @@ class AuthController extends Controller
         'mot_de_passe' => 'required|min:6',
     ]);
 
-    // Tentative de connexion avec les identifiants fournis
-    if (Auth::attempt(['email' => $request->email, 'mot_de_passe' => $request->mot_de_passe])) {
-        // Connexion réussie, rediriger vers la page d'accueil ou tableau de bord
+    // Tenter la connexion
+    if (Auth::attempt(['email' => $request->email, 'password' => $request->mot_de_passe])) {
         return redirect()->route('home');
     } else {
-        // Connexion échouée
         return back()->withErrors(['email' => 'Les informations d\'identification ne correspondent pas.']);
     }
 }
+
 
     // Gérer l'inscription de l'utilisateur
     public function register(Request $request)

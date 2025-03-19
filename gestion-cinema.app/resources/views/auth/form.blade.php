@@ -18,10 +18,22 @@
                     <input type="email" name="email" placeholder="email" required>
                     <i class='bx bxs-user'></i>
                 </div>
+                @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
                 <div class="input-box">
                     <input type="password" name="mot_de_passe" placeholder="mot de passe" required>
                     <i class='bx bxs-lock-alt'></i>
                 </div>
+                @error('mot_de_passe')
+    <span class="text-danger">{{ $message }}</span>
+@enderror
                 <div class="forgot-link">
                     <a href="#">mot de passe oublié?</a>
                 </div>

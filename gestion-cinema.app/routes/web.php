@@ -21,6 +21,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', function() {
         return view('home');
     })->name('home');
-    
- 
 });
+
+//Page d'acceuil de l'application
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
