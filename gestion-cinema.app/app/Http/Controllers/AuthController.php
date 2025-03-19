@@ -30,7 +30,7 @@ class AuthController extends Controller
         // Connexion réussie, rediriger vers la page d'accueil ou tableau de bord
         return redirect()->route('home');
     } else {
-        // Connexion échouée, retour avec un message d'erreur
+        // Connexion échouée
         return back()->withErrors(['email' => 'Les informations d\'identification ne correspondent pas.']);
     }
 }
@@ -53,10 +53,10 @@ class AuthController extends Controller
     ]);
 
     // Connexion de l'utilisateur après l'inscription
-    //Auth::login($user);
+    Auth::login($user);
 
     // Rediriger vers la page d'accueil ou tableau de bord
-    return redirect()->route('auth.form');
+    return redirect()->route('home');
 }
 
 

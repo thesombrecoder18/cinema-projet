@@ -10,9 +10,8 @@ class User extends Authenticatable {
     public function reservations() {
         return $this->hasMany(Reservation::class, 'client_id');
     }
-    public function getAuthPassword()
-{
+    public function getAuthPassword(){
     return $this->mot_de_passe;
-}
+    }
 
 }
