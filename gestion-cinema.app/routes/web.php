@@ -6,7 +6,7 @@ use App\Http\Controllers\MovieController;
 
 // Route par défaut - redirige vers le formulaire d'authentification
 Route::get('/', function () {
-    return redirect()->route('auth.form');
+    return redirect()->route('home');
 });
 
 // Routes d'authentification
@@ -16,13 +16,12 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
 
-// Routes protégées par l'authentification
-Route::middleware(['auth'])->group(function () {
+
     // Route de la page d'accueil après connexion
     Route::get('/home', function() {
         return view('home');
     })->name('home');
-});
+
 
 //Page d'acceuil de l'application
 Route::get('/dashboard', function () {
