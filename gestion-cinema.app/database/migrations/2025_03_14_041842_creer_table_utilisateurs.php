@@ -17,8 +17,8 @@ return new class extends Migration
                 $table->id();
                 $table->string('nom');
                 $table->string('email')->unique();
-                $table->string('mot_de_passe');
-                $table->enum('rôle', ['client', 'administrateur'])->default('client');
+                $table->string('password');
+                $table->String('role')->default('client');
                 $table->timestamps();
             });
         }
@@ -36,8 +36,6 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
-        
-        
     }
 
     /**

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('client_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('seance_id')->constrained()->onDelete('cascade');
-            $table->string('statut');
+            $table->enum('statut', ['en_attente', 'confirmee', 'annulee'])->default('en_attente');
             $table->string('place');
             $table->timestamps();
         });

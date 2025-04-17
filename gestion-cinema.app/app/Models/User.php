@@ -1,21 +1,31 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Reservation;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable {
+
+class User extends Authenticatable
+{
     use Notifiable;
-    protected $fillable = ['nom', 'email', 'mot_de_passe', 'rôle'];
+    protected $fillable = ['nom', 'email', 'password', 'role'];
     protected $hidden = [
-        'mot_de_passe',
+        'password',
+        'remember_token',
     ];
-    public function reservations() {
+    public function reservations()
+    {
         return $this->hasMany(Reservation::class, 'client_id');
     }
-    public function getAuthPassword(){
-    return $this->mot_de_passe;
-    }
 
+    public function isClient()
+    {
+        return $this->role === 'client';
+    }
+    public function isAdmin()
+    {
+        return $this->role === 'administrateur';
+    }
 }

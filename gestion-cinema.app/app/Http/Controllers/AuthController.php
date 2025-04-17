@@ -18,45 +18,45 @@ class AuthController extends Controller
 
     // Gérer l'authentification de l'utilisateur
     public function login(Request $request)
-{
-    // Validation des données
-    $validated = $request->validate([
-        'email' => 'required|email',
-        'mot_de_passe' => 'required|min:6',
-    ]);
+    {
+        // Validation des données
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
 
-    // Tenter la connexion
-    if (Auth::attempt(['email' => $request->email, 'password' => $request->mot_de_passe])) {
-        return redirect()->route('home');
-    } else {
-        return back()->withErrors(['email' => 'Les informations d\'identification ne correspondent pas.']);
+        // Tenter la connexion
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            return redirect()->route('home');
+        } else {
+            return back()->withErrors(['email' => 'Les informations d\'identification ne correspondent pas.']);
+        }
     }
-}
 
 
     // Gérer l'inscription de l'utilisateur
     public function register(Request $request)
-{
-    // Validation des données
-    $validated = $request->validate([
-        'nom' => 'required|string|max:255',
-        'email' => 'required|email|unique:users,email',
-        'mot_de_passe' => 'required|min:6|confirmed',
-    ]);
+    {
+        // Validation des données
+        $validated = $request->validate([
+            'nom' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6|confirmed',
+        ]);
 
-    // Création de l'utilisateur
-    $user = User::create([
-        'nom' => $request->nom, // Assure-toi d'utiliser 'nom' si c'est le nom de la colonne dans la base de données
-        'email' => $request->email,
-        'mot_de_passe' => Hash::make($request->mot_de_passe),
-    ]);
+        // Création de l'utilisateur
+        $user = User::create([
+            'nom' => $request->nom, // Assure-toi d'utiliser 'nom' si c'est le nom de la colonne dans la base de données
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
 
-    // Connexion de l'utilisateur après l'inscription
-    Auth::login($user);
+        // Connexion de l'utilisateur après l'inscription
+        Auth::login($user);
 
-    // Rediriger vers la page d'accueil ou tableau de bord
-    return redirect()->route('home');
-}
+        // Rediriger vers la page d'accueil ou tableau de bord
+        return redirect()->route('home');
+    }
 
 
     // Déconnexion de l'utilisateur
@@ -65,9 +65,10 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('home');
+        // return redirect()->route('home');
+        return redirect('/form')->with('success', 'Vous avez été déconnecté avec succès.');
     }
-    
+
     public function showForgotPasswordForm()
     {
         return view('auth.forgot-password');

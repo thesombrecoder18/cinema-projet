@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cinema App</title>
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
+
 <body>
     <div class="container">
         <div class="formulaire-box login">
@@ -19,21 +23,21 @@
                     <i class='bx bxs-user'></i>
                 </div>
                 @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="input-box">
-                    <input type="password" name="mot_de_passe" placeholder="mot de passe" required>
+                    <input type="password" name="password" placeholder="mot de passe" required>
                     <i class='bx bxs-lock-alt'></i>
                 </div>
-                @error('mot_de_passe')
-    <span class="text-danger">{{ $message }}</span>
-@enderror
+                @error('password')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
                 <div class="forgot-link">
                     <a href="#">mot de passe oublié?</a>
                 </div>
@@ -55,11 +59,11 @@
                     <i class='bx bxs-envelope'></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" name="mot_de_passe" placeholder="mot de passe" required>
+                    <input type="password" name="password" placeholder="mot de passe" required>
                     <i class='bx bxs-lock-alt'></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" name="mot_de_passe_confirmation" placeholder="valider mot de passe" required>
+                    <input type="password" name="password_confirmation" placeholder="valider mot de passe" required>
                     <i class='bx bxs-lock-alt'></i>
                 </div>
                 <button type="submit" class="btn">Enregistrer</button>
@@ -85,4 +89,5 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/js/boxicons.min.js"></script>
 </body>
+
 </html>

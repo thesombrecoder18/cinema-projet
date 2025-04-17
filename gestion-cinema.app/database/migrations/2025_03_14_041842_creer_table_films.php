@@ -16,8 +16,8 @@ return new class extends Migration
             $table->id();
             $table->string('titre');
             $table->text('description');
-            $table->integer('durée');
-            $table->string('catégorie');
+            $table->integer('duree');
+            $table->string('categorie');
             $table->date('date_sortie');
             $table->timestamps();
         });

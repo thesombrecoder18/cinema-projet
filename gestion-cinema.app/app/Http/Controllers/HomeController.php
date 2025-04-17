@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Film;
+use App\Models\Seance;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $films = Film::latest()->take(5)->get(); // Les 5 derniers films
+        $seances = Seance::with('film', 'salle')->where('date_heure', '>=', now())->orderBy('date_heure')->take(5)->get(); // Prochaines séances
+
+        return view('home', compact('films', 'seances'));
     }
 }

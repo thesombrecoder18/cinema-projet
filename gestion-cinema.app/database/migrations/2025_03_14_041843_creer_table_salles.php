@@ -14,8 +14,8 @@ return new class extends Migration
         //
         Schema::create('salles', function (Blueprint $table) {
             $table->id();
-            $table->integer('numéro');
-            $table->integer('capacité');
+            $table->integer('numero');
+            $table->integer('capacite');
             $table->timestamps();
         });
     }
