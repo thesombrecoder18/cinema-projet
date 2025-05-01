@@ -373,6 +373,7 @@
                 <li><a href="{{ route('home') }}" class="active">Accueil</a></li>
                 <li><a href="{{ route('movies.index') }}">Films</a></li>
                 <li><a href="#">Événements</a></li>
+                {{-- pas encorre fait la route pour l'evenement --}}
                 {{-- <li><a href="{{ route('events.index') }}">Événements</a></li> --}}
                 <li><a href="{{ route('contact') }}">Contact</a></li>
 
@@ -386,7 +387,8 @@
                         </form>
                     </li>
                 @else
-                    <li><a href="/form"><button class="cta-button">se connecter / s'inscrire</button></a></li>
+                    <li><a href="{{ route('auth.form') }}"><button class="cta-button">Se connecter / S'inscrire</button></a>
+                    </li>
                 @endauth
             </ul>
         </div>

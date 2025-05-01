@@ -73,4 +73,9 @@ class AuthController extends Controller
     {
         return view('auth.forgot-password');
     }
+
+    public function showLoginForm()
+    {
+        return view('auth.form'); // crée une vue resources/views/auth/login.blade.php
+    }
 }

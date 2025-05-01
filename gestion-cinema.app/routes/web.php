@@ -13,10 +13,9 @@ use App\Http\Controllers\Admin\UserController;
 // Route::get('/', function () {
 //     return redirect()->route('home');
 // });
-Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
-Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/about', function () {
     return view('about');
 })->name('about');
@@ -26,7 +25,8 @@ Route::get('/contact', function () {
 
 // Authentification
 Route::get('/form', [AuthController::class, 'showForm'])->name('auth.form');
-Route::get('/login', [AuthController::class, 'login'])->name('login');
+// Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('auth.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -84,4 +84,12 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->name('admin.')->group(f
     Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+});
+
+
+// Route admin pour afficher le tableau de bord
+Route::middleware(['auth', 'isAdmin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', function () {
+        return view('admin.index');
+    })->name('dashboard');
 });

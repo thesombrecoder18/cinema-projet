@@ -73,13 +73,13 @@
 
         <div class="toggle-box">
             <div class="toggle-panel toggle-left">
-                <h1>Salam sur tous !</h1>
+                <h1>Siyaar !</h1>
                 <p>vous n'avez pas de compte ?</p>
                 <button class="btn register-btn">S'inscrire</button>
             </div>
 
             <div class="toggle-panel toggle-right">
-                <h1>DE retour XD</h1>
+                <h1>Kaay setaan</h1>
                 <p>vous avez deja un compte ?</p>
                 <button class="btn login-btn">Se connecter</button>
             </div>
