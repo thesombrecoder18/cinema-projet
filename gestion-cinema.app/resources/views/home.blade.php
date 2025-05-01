@@ -362,6 +362,60 @@
                 text-align: center;
             }
         }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #fff;
+            min-width: 180px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 16px;
+            text-decoration: none;
+            color: #333;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-item.email-display {
+            font-weight: 500;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background-color: #e9ecef;
+            margin: 0;
+        }
+
+        .logout-btn {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .show {
+            display: block;
+        }
     </style>
 </head>
 
@@ -377,7 +431,7 @@
                 {{-- <li><a href="{{ route('events.index') }}">Événements</a></li> --}}
                 <li><a href="{{ route('contact') }}">Contact</a></li>
 
-                <li><a class="account-link"><i class="fas fa-user"></i></a></li>
+                {{-- <li><a class="account-link"><i class="fas fa-user"></i></a></li>
                 @auth
                     <li><a href="">{{ Auth::user()->email }}</a></li>
                     <li>
@@ -389,7 +443,24 @@
                 @else
                     <li><a href="{{ route('auth.form') }}"><button class="cta-button">Se connecter / S'inscrire</button></a>
                     </li>
-                @endauth
+                @endauth --}}
+                <li class="dropdown">
+                    <a class="account-link dropdown-toggle" id="user-dropdown">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu" id="dropdown-content">
+                        @auth
+                            <a class="dropdown-item email-display">{{ Auth::user()->email }}</a>
+                            <div class="dropdown-divider"></div>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="dropdown-item logout-btn">Se déconnecter</button>
+                            </form>
+                        @else
+                            <a href="{{ route('auth.form') }}" class="dropdown-item">Se connecter / S'inscrire</a>
+                        @endauth
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
@@ -426,6 +497,7 @@
                         <div class="movie-info">
                             <h3>{{ $film->title }}</h3>
                             <div class="movie-meta">
+                                <span>Titre : {{ $film->titre }}</span>
                                 <span>Durée : {{ $film->duree }} min</span>
                                 <span>Âge : {{ $film->age_limit }}</span>
                                 <span>Genre : {{ $film->categorie }}</span>
@@ -502,6 +574,28 @@
             </div>
         </div>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownToggle = document.getElementById('user-dropdown');
+            const dropdownContent = document.getElementById('dropdown-content');
+
+            // Fonction pour ouvrir/fermer le menu déroulant au clic
+            dropdownToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                dropdownContent.classList.toggle('show');
+            });
+
+            // Fermer le menu déroulant si l'utilisateur clique ailleurs
+            window.addEventListener('click', function(e) {
+                if (!e.target.matches('.dropdown-toggle') &&
+                    !e.target.matches('.fas.fa-user')) {
+                    if (dropdownContent.classList.contains('show')) {
+                        dropdownContent.classList.remove('show');
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

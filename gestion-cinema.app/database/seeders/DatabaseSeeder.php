@@ -20,12 +20,12 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'nom' => 'baye',
-            'email' => 'elimaneka19@gmail.com',
+            'email' => 'elizo@gmail.com',
             'password' => Hash::make('password'),
             'role' => 'administrateur',
         ]);
         User::create([
-            'nom' => 'baye',
+            'nom' => 'Billo',
             'email' => 'amadou@esp.sn',
             // 'password' => bcrypt('password'),
             'password' => Hash::make('password'),
@@ -36,7 +36,28 @@ class DatabaseSeeder extends Seeder
             'description' => 'Un film de science-fiction',
             'duree' => 148,
             'categorie' => 'Science-fiction',
-            'date_sortie' => '2010-07-16'
+            'date_sortie' => '2025-07-16'
+        ]);
+        Film::create([
+            'titre' => 'Comment Bachir a conquit ses 4 femmes',
+            'description' => 'Bachir, un séducteur malgré lui, navigue entre maladresses et coups de génie pour conquérir le cœur de ses quatre élues. Entre quiproquos hilarants et stratégies douteuses, découvrez comment cet amoureux du ballon rond est devenu un virtuose… du romantisme bancal !',
+            'duree' => 120,
+            'categorie' => 'Amour, comedie',
+            'date_sortie' => '2025-05-02'
+        ]);
+        Film::create([
+            'titre' => 'Bachir, le Messi du dimanche, qui aurait pu briller…',
+            'description' => 'Bachir avait tout pour devenir une légende du football… enfin, presque. Entre les contrôles approximatifs et les tirs qui finissent plus souvent dans le parking que dans les filets, son parcours est une épopée aussi drôle qu’émouvante. Mais quand une dernière chance s’offre à lui, saura-t-il enfin briller sous les projecteurs, ou restera-t-il à jamais le roi des terrains vagues ?',
+            'duree' => 90,
+            'categorie' => 'Comedie',
+            'date_sortie' => '2025-05-05'
+        ]);
+        Film::create([
+            'titre' => 'Bachir, roi du buffet à volonté',
+            'description' => 'Quand il s\'agit de manger, Bachir ne fait pas les choses à moitié ! Des entrées aux desserts, chaque plat est un défi, chaque assiette une conquête. Mais jusqu\’où ira-t-il dans sa quête du buffet ultime ? Entre assiettes surchargées, stratégies de gourmand professionnel et un ventre qui a ses limites, suivez l\’épopée culinaire d\’un homme prêt à tout… enfin, surtout à manger !',
+            'duree' => 100,
+            'categorie' => 'Comedie',
+            'date_sortie' => '2025-05-10'
         ]);
 
         Salle::create([
@@ -58,12 +79,12 @@ class DatabaseSeeder extends Seeder
             'date_heure' => '2023-10-01 14:00:00',
         ]);
         Seance::create([
-            'film_id' => 1,
+            'film_id' => 2,
             'salle_id' => 2,
             'date_heure' => '2023-10-01 16:00:00',
         ]);
         Seance::create([
-            'film_id' => 1,
+            'film_id' => 3,
             'salle_id' => 3,
             'date_heure' => '2023-10-01 18:00:00',
         ]);

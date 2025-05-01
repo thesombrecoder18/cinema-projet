@@ -5,9 +5,10 @@
         <div class="card mb-4">
             <div class="card-body">
                 <h2>{{ $film->title }}</h2>
-                <p>Année : {{ $film->date_sortie }}</p>
+                <p>Titre : {{ $film->titre }}</p>
                 <p>Durée : {{ $film->duree }} minutes</p>
                 <p>Genre : {{ $film->categorie }}</p>
+                <p>Année : {{ $film->date_sortie }}</p>
                 <p>Description : {{ $film->description }}</p>
                 <!-- Ajoute ici d'autres détails spécifiques à chaque film -->
 
