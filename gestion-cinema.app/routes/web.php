@@ -10,9 +10,9 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\Admin\UserController;
 
 // Routes publiques
-// Route::get('/', function () {
-//     return redirect()->route('home');
-// });
+Route::get('/', function () {
+     return redirect()->route('home');
+ });
 
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -25,8 +25,8 @@ Route::get('/contact', function () {
 
 // Authentification
 Route::get('/form', [AuthController::class, 'showForm'])->name('auth.form');
-// Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('auth.form');
+// Route pour afficher le formulaire de connexion des utilisateurs normaux
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -51,7 +51,6 @@ Route::middleware(['auth'])->group(function () {
         ->name('reservations.store');
 });
 
-// Routes admin (exemple) avec middleware "isAdmin" personnalisé
 Route::middleware(['auth', 'isAdmin'])->prefix('admin')->name('admin.')->group(function () {
     // Gestion des films
     Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
@@ -86,10 +85,45 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->name('admin.')->group(f
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 });
 
+// Route pour la page de connexion admin
+Route::get('/admin', function () {
+    if (auth()->check() && auth()->user()->isAdmin()) {
+        return redirect()->route('admin.dashboard');
+    }
+    return view('admin.index'); // Affiche le formulaire de connexion
+})->name('admin.login');
+
+// Route pour afficher le formulaire de connexion des administrateurs
+Route::get('/admin/login', [AuthController::class, 'showAdminLoginForm'])->name('admin.login');
+Route::post('/admin/login', [AuthController::class, 'loginAdmin'])->name('admin.login');
+
+
 
 // Route admin pour afficher le tableau de bord
 Route::middleware(['auth', 'isAdmin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/', function () {
-        return view('admin.index');
-    })->name('dashboard');
+    // Tableau de bord
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+
+    // Annonces
+    Route::get('/annonces', [AdminController::class, 'annonces'])->name('annonces');
+
+    // Films
+    Route::get('/movies', [AdminController::class, 'movies'])->name('movies');
+
+    // Séances
+    Route::get('/seances', [AdminController::class, 'seances'])->name('seances');
+
+    // Utilisateurs
+    Route::get('/users', [AdminController::class, 'users'])->name('users');
+
+    // Paramètres
+    Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
 });
+
+Route::middleware(['auth', 'isAdmin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+});
+
+Route::get('/test-admin', function () {
+    return 'You are an admin!';
+})->middleware(['auth', 'isAdmin']);

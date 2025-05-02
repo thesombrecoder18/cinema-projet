@@ -13,10 +13,16 @@ class AuthController extends Controller
     // Affiche le formulaire combiné (login et inscription)
     public function showForm()
     {
-        return view('auth.form'); // Ta vue de formulaire combiné
+        return view('auth.form'); // Vue pour le formulaire combiné
     }
 
-    // Gérer l'authentification de l'utilisateur
+    // Affiche le formulaire de connexion pour les administrateurs
+    public function showAdminLoginForm()
+    {
+        return view('admin.index'); // Vue pour le formulaire de connexion admin
+    }
+
+    // Gérer l'authentification des utilisateurs normaux
     public function login(Request $request)
     {
         // Validation des données
@@ -27,12 +33,48 @@ class AuthController extends Controller
 
         // Tenter la connexion
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->route('home');
-        } else {
-            return back()->withErrors(['email' => 'Les informations d\'identification ne correspondent pas.']);
+            $user = Auth::user();
+
+            // Rediriger les utilisateurs normaux vers la page d'accueil
+            if (!$user->isAdmin()) {
+                return redirect()->route('home');
+            }
+
+            // Déconnecter les administrateurs qui utilisent cette route
+            Auth::logout();
+            return redirect()->route('login')->withErrors(['email' => 'Cette route est réservée aux utilisateurs normaux.']);
         }
+
+        // Retourner une erreur si la connexion échoue
+        return back()->withErrors(['email' => 'Les informations d\'identification ne correspondent pas.']);
     }
 
+    // Gérer l'authentification des administrateurs
+    public function loginAdmin(Request $request)
+    {
+        // Validation des données
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+
+        // Tenter la connexion
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $user = Auth::user();
+
+            // Vérifier si l'utilisateur est un administrateur
+            if ($user->isAdmin()) {
+                return redirect()->route('admin.dashboard'); // Redirige vers le tableau de bord admin
+            }
+
+            // Déconnecter les utilisateurs non administrateurs
+            Auth::logout();
+            return redirect()->route('admin.login')->withErrors(['email' => 'Accès réservé aux administrateurs.']);
+        }
+
+        // Retourner une erreur si la connexion échoue
+        return back()->withErrors(['email' => 'Les informations d\'identification ne correspondent pas.']);
+    }
 
     // Gérer l'inscription de l'utilisateur
     public function register(Request $request)
@@ -46,18 +88,18 @@ class AuthController extends Controller
 
         // Création de l'utilisateur
         $user = User::create([
-            'nom' => $request->nom, // Assure-toi d'utiliser 'nom' si c'est le nom de la colonne dans la base de données
+            'nom' => $request->nom,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 'client', // Par défaut, le rôle est "client"
         ]);
 
         // Connexion de l'utilisateur après l'inscription
         Auth::login($user);
 
-        // Rediriger vers la page d'accueil ou tableau de bord
+        // Rediriger vers la page d'accueil
         return redirect()->route('home');
     }
-
 
     // Déconnexion de l'utilisateur
     public function logout(Request $request)
@@ -65,17 +107,11 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        // return redirect()->route('home');
         return redirect('/form')->with('success', 'Vous avez été déconnecté avec succès.');
     }
 
     public function showForgotPasswordForm()
     {
         return view('auth.forgot-password');
-    }
-
-    public function showLoginForm()
-    {
-        return view('auth.form'); // crée une vue resources/views/auth/login.blade.php
     }
 }
