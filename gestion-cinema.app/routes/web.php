@@ -26,7 +26,7 @@ Route::get('/contact', function () {
 // Authentification
 Route::get('/form', [AuthController::class, 'showForm'])->name('auth.form');
 // Route pour afficher le formulaire de connexion des utilisateurs normaux
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [AuthController::class, 'showForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
