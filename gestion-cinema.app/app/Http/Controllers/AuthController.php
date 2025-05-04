@@ -64,16 +64,26 @@ class AuthController extends Controller
 
             // Vérifier si l'utilisateur est un administrateur
             if ($user->isAdmin()) {
-                return redirect()->route('admin.dashboard'); // Redirige vers le tableau de bord admin
+                // Régénérer la session pour des raisons de sécurité
+                $request->session()->regenerate();
+
+                // Rediriger vers le tableau de bord admin
+                return redirect()->intended(route('admin.dashboard'));
             }
 
             // Déconnecter les utilisateurs non administrateurs
             Auth::logout();
-            return redirect()->route('admin.login')->withErrors(['email' => 'Accès réservé aux administrateurs.']);
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect()->route('admin.login')
+                ->withErrors(['email' => 'Accès réservé aux administrateurs.']);
         }
 
         // Retourner une erreur si la connexion échoue
-        return back()->withErrors(['email' => 'Les informations d\'identification ne correspondent pas.']);
+        return back()->withErrors([
+            'email' => 'Les informations d\'identification ne correspondent pas.',
+        ]);
     }
 
     // Gérer l'inscription de l'utilisateur
